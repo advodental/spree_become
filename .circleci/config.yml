@@ -1,0 +1,55 @@
+version: 2 # use CircleCI 2.0
+jobs: # a collection of steps
+  build: # runs not using Workflows must have a `build` job as entry point
+    working_directory: ~/spree_become # directory where steps will run
+    docker: # run the steps with Docker
+      - image: circleci/ruby:2.5-node-browsers # ...with this image as the primary container; this is where all `steps` will run
+        environment: # environment variables for primary container
+          CIRCLE_TEST_REPORTS: /tmp/test-results
+          CIRCLE_ARTIFACTS: /tmp/test-artifacts
+          BUNDLE_JOBS: 4
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: ~/spree_become/vendor/bundle
+          SPREE_USE_PAPERCLIP: true
+    steps: # a collection of executable commands
+      - checkout # special step to check out source code to working directory
+
+      # Which version of bundler?
+      - run:
+          name: Which bundler?
+          command: bundle -v
+
+      # Restore bundle cache
+      - restore_cache:
+          keys:
+            - spree_become-bundle-v2-{{ .Branch }}
+            - spree_become-bundle-v2
+
+      # Install gem dependencies
+      - run:
+          name: Bundle Install
+          command: |
+            bundle check || bundle install
+
+      # Store bundle cache
+      - save_cache:
+          key: spree_become-bundle-v2-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ~/spree_become/vendor/bundle
+
+      - run:
+          name: Run rspec
+          command: |
+            RAILS_ENV=test bundle exec rake test_app
+            RAILS_ENV=test bundle exec rake spec
+
+      - store_artifacts:
+          path: /tmp/test-artifacts
+          destination: test-artifacts
+
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: raw-test-output
+
+      - store_test_results:
+          path: /tmp/test-results
