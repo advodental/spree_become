@@ -1,0 +1,5 @@
+<% if session[:imitated_by].present? && session[:imitated_to].present? %>
+  <div class="imitating-headline">
+    <%= session[:imitated_by] %> is imitating <%= session[:imitated_to]%> - <%= link_to 'Stop imitating', restore_session_path %>
+  </div>
+<% end %>
