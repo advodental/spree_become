@@ -3,7 +3,7 @@ Deface::Override.new(:virtual_path => "spree/layouts/spree_application",
                     :insert_top => "[data-hook='body']",
                     partial: 'spree/shared/imitate_bar')
 
-Deface::Override.new(:virtual_path => "spree/layouts/admin",
+Deface::Override.new(:virtual_path => "spree/admin/shared/_header",
                     :name => "add_become_imitate_bar_to_admin_layout",
-                    :insert_top => "[class='admin']",
+                    :insert_top => "[role='navigation']",
                     partial: 'spree/shared/imitate_bar')
