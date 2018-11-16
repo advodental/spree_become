@@ -1,4 +1,13 @@
-/*
-Placeholder manifest file.
-the installer will append this file to the app vendored assets here: 'vendor/assets/stylesheets/spree/backend/all.css'
-*/
+.imitating-headline,.imitating-headline a{
+  background: #ff0000;
+  text-align: center;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 2px 0;
+}
+.imitating-headline a{
+  font-weight: bold;
+}
+#main-sidebar{
+  top: 70px;
+}
