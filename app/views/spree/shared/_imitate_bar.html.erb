@@ -1,5 +1,5 @@
-<% if session[:imitated_by].present? && session[:imitated_to].present? %>
+<% if session[:imitated_by].present? && session[:imitating_user_email].present? %>
   <div class="imitating-headline">
-    <%= session[:imitated_by] %> is imitating <%= session[:imitated_to]%> - <%= link_to 'Stop imitating', restore_session_path %>
+    <%= session[:imitated_by] %> is imitating <%= session[:imitating_user_email]%> - <%= link_to 'Stop imitating', restore_session_path %>
   </div>
 <% end %>

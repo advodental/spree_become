@@ -5,7 +5,7 @@ Spree::Admin::UsersController.class_eval do
     session[:imitated_by] = spree_current_user.email
     sign_out spree_current_user
     bypass_sign_in(@imitated_to)
-    session[:imitated_to] = @imitated_to.email
+    session[:imitating_user_email] = @imitated_to.email
     redirect_to root_url
   end
 end

@@ -5,7 +5,7 @@ Spree::UserSessionsController.class_eval do
     sign_out spree_current_user
     bypass_sign_in(@imitated_by)
     session.delete(:imitated_by)
-    session.delete(:imitated_to)
+    session.delete(:imitating_user_email)
     redirect_to admin_users_path
   end
 end
