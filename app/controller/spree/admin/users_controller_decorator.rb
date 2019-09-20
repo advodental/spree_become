@@ -1,5 +1,6 @@
 Spree::Admin::UsersController.class_eval do
   def switch_session
+    session[:redirect_path] = request.referrer
     @imitated_to = Spree::User.find_by(id: params[:id])
     redirect_to root_url and return unless @imitated_to
     session[:imitated_by] = spree_current_user.email
