@@ -1,4 +1,4 @@
-Spree::UserSessionsController.class_eval do
+module Spree::UserSessionsControllerDecorator
   def restore_session
     @imitated_by = Spree::User.find_by(email: session[:imitated_by])
     path = session[:redirect_path] || admin_users_path
@@ -10,3 +10,5 @@ Spree::UserSessionsController.class_eval do
     redirect_to path
   end
 end
+
+Spree::UserSessionsController.prepend Spree::UserSessionsControllerDecorator
