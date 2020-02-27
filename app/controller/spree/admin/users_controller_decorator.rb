@@ -1,4 +1,4 @@
-Spree::Admin::UsersController.class_eval do
+module Spree::Admin::UsersControllerDecorator
   def switch_session
     session[:redirect_path] = request.referrer
     @imitated_to = Spree::User.find_by(id: params[:id])
@@ -10,3 +10,5 @@ Spree::Admin::UsersController.class_eval do
     redirect_to root_url
   end
 end
+
+Spree::Admin::UsersController.prepend Spree::Admin::UsersControllerDecorator
